@@ -1,5 +1,11 @@
-class parkingLot:
+class ParkingLot:
     typePlace = ["Moto place", "Smart place", "Large place"]
+
+    transport = {
+        "Moto": 0,
+        "Auto": 0,
+        "Bus": 0
+    }
 
     def __init__(self, name, motorcycle_place, smart_place, large_place):
         self.name = name
@@ -12,9 +18,10 @@ class parkingLot:
             [0] * self.large_place
         ]
 
-    def show_free_place(self, place):
-        print(str(self.typePlace[place]) + " has " + str(self.schema[place].count(0)) + " free place")
-        return
+    def show_free_place(self):
+        for i in range(len(self.schema)):
+            print(str(self.typePlace[i]) + " has " + str(self.schema[i].count(0)) + " free.")
+        print()
 
     def show_schema(self):
         for i in range(len(self.schema)):
@@ -23,3 +30,8 @@ class parkingLot:
                 print(self.schema[i][j], end=' ')
             print()
         print()
+
+    def show_info(self):
+        print("Moto on parking lot: " + str(self.transport["Moto"]))
+        print("Auto on parking lot: " + str(self.transport["Auto"]))
+        print("Bus on parking lot: " + str(self.transport["Bus"]))

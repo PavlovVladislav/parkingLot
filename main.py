@@ -1,6 +1,6 @@
-from ClassParkingLot import parkingLot
+from ClassParkingLot import ParkingLot
 
-parkingLot = parkingLot('Moscow', 3, 5, 15)
+parkingLot = ParkingLot('Moscow', 3, 5, 15)
 parkingLot.show_schema()
-parkingLot.show_free_place(0)
-print("hi")
+parkingLot.show_free_place()
+parkingLot.show_info()
