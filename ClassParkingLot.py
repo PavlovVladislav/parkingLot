@@ -4,27 +4,31 @@ class ParkingLot:
     def __init__(self, name, motorcycle_place, smart_place, large_place):
         self.name = name
         self.arr_place = [motorcycle_place, smart_place, large_place]
-        self.typePlace = {
-            "Moto place": self.arr_place[0],
-            "Smart place": self.arr_place[1],
-            "Large place": self.arr_place[2]
-        }
         self.transport = {
             "Moto": 0,
             "Auto": 0,
             "Bus": 0
         }
+        self.schema = [
+            [0] * self.arr_place[0],
+            [0] * self.arr_place[1],
+            [0] * self.arr_place[2]
+        ]
 
     def show_free_place(self):
-        for key in self.typePlace:
-            print(str(key) + " has " + str(self.typePlace[key]) + " free.")
+        for i in range(len(self.schema)):
+            try:
+                print(self.typePlace[i] + " has " + str(self.schema[i].count(0)) + " free.")
+            except:
+                print(self.typePlace[i] + " has 0 free.")
         print()
 
-    def draw_schema(self):
-        i = 0
-        for key in self.typePlace:
-            print(str(key) + " : " + "1 " * (self.arr_place[i] - self.typePlace[key]) + "0 " * self.typePlace[key])
-            i += 1
+    def show_schema(self):
+        for i in range(len(self.schema)):
+            print(self.typePlace[i], end=':')
+            for j in range(len(self.schema[i])):
+                print(self.schema[i][j], end=' ')
+            print()
         print()
 
     def show_info(self):
@@ -34,9 +38,9 @@ class ParkingLot:
 
     def add_transport(self, type_transport):
         if type_transport == "Moto":
-            for key in self.typePlace:
-                if self.typePlace[key] != 0:
-                    self.typePlace[key] = self.typePlace[key] - 1
+            for i in range(len(self.typePlace)):
+                if self.schema[i].count(0) != 0:
+                    self.schema[i][self.schema[i].index(0)] = "M"
                     self.transport["Moto"] += 1
                     print("Added 1 Moto", end='\n\n')
                     break
@@ -44,19 +48,21 @@ class ParkingLot:
                     print("Don/'t have place for Moto", end='\n\n')
 
         elif type_transport == "Auto":
-            if self.typePlace["Smart place"] != 0:
-                self.typePlace["Smart place"] = self.typePlace["Smart place"] - 1
-                self.transport["Auto"] += 1
-            elif self.typePlace["Large place"] != 0:
-                self.typePlace["Large place"] = self.typePlace["Large place"] - 1
-                self.transport["Auto"] += 1
-            else:
-                print("Don/'t have place for Auto", end='\n\n')
+            for i in range(1, len(self.typePlace)):
+                if self.schema[i].count(0) != 0:
+                    self.schema[i][self.schema[i].index(0)] = "A"
+                    self.transport["Auto"] += 1
+                    print("Added 1 Auto", end='\n\n')
+                    break
+                else:
+                    print("Don/'t have place for Auto", end='\n\n')
 
         elif type_transport == "Bus":
-            if self.typePlace["Large place"] // 5 != 0:
-                self.typePlace["Large place"] = self.typePlace["Large place"] - 5
+            if self.schema[2].count(0) // 5 != 0:
+                start = self.schema[2].index(0)
+                for i in range(4):
+                    self.schema[2][i] = "B"
                 self.transport["Bus"] += 1
+                print("Added 1 Bus", end='\n\n')
             else:
                 print("Don\'t have place for Bus", end='\n\n')
-
