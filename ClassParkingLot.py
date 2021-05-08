@@ -38,24 +38,28 @@ class ParkingLot:
 
     def add_transport(self, type_transport):
         if type_transport == "Moto":
-            for i in range(len(self.typePlace)):
+            add = 0
+            for i in range(len(self.schema)):
                 if self.schema[i].count(0) != 0:
                     self.schema[i][self.schema[i].index(0)] = "M"
                     self.transport["Moto"] += 1
                     print("Added 1 Moto", end='\n\n')
+                    add += 1
                     break
-                else:
-                    print("Don/'t have place for Moto", end='\n\n')
+            if add == 0:
+                print("Don\'t have place for Moto", end='\n\n')
 
         elif type_transport == "Auto":
-            for i in range(1, len(self.typePlace)):
+            add = 0
+            for i in range(1, len(self.schema)):
                 if self.schema[i].count(0) != 0:
                     self.schema[i][self.schema[i].index(0)] = "A"
                     self.transport["Auto"] += 1
                     print("Added 1 Auto", end='\n\n')
+                    add += 1
                     break
-                else:
-                    print("Don/'t have place for Auto", end='\n\n')
+            if add == 0:
+                print("Don\'t have place for Auto", end='\n\n')
 
         elif type_transport == "Bus":
             if self.schema[2].count(0) // 5 != 0:
@@ -64,33 +68,41 @@ class ParkingLot:
                     self.schema[2][start + i] = "B"
                 self.transport["Bus"] += 1
                 print("Added 1 Bus", end='\n\n')
-            else:
+            elif self.schema[2].count(0) == 0:
                 print("Don\'t have place for Bus", end='\n\n')
 
     def del_transport(self, type_transport):
         if type_transport == "Moto":
-            for i in range(len(self.typePlace)):
-                if self.schema[i].count('M') != 0:
-                    self.schema[i].reverse()
-                    self.schema[i][self.schema[i].index('M')] = 0
-                    self.schema[i].reverse()
+            add = 0
+            revers_schema = self.schema[::-1]
+            for i in range(len(revers_schema)):
+                if revers_schema[i].count('M') != 0:
+                    revers_schema[i].reverse()
+                    revers_schema[i][revers_schema[i].index('M')] = 0
+                    revers_schema[i].reverse()
                     self.transport["Moto"] -= 1
+                    add += 1
+                    self.schema = revers_schema[::-1]
                     print("Removed 1 Moto", end='\n\n')
                     break
-                else:
-                    print("All place for Moto are free", end='\n\n')
+            if add == 0:
+                print("All place for Moto are free", end='\n\n')
 
         elif type_transport == "Auto":
-            for i in range(1, len(self.typePlace)):
-                if self.schema[i].count('A') != 0:
-                    self.schema[i].reverse()
-                    self.schema[i][self.schema[i].index('A')] = 0
-                    self.schema[i].reverse()
+            add = 0
+            revers_schema = self.schema[::-1]
+            for i in range(len(revers_schema)-1):
+                if revers_schema[i].count('A') != 0:
+                    revers_schema[i].reverse()
+                    revers_schema[i][revers_schema[i].index('A')] = 0
+                    revers_schema[i].reverse()
                     self.transport["Auto"] -= 1
+                    self.schema = revers_schema[::-1]
                     print("Removed 1 Auto", end='\n\n')
+                    add += 1
                     break
-                else:
-                    print("All place for Auto are free", end='\n\n')
+            if add == 0:
+                print("Don\'t have place for Auto", end='\n\n')
 
         elif type_transport == "Bus":
             if self.schema[2].count(0) // 5 != 0:

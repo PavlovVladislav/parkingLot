@@ -13,7 +13,7 @@ if __name__ == '__main__':
                 print()
                 parking_lot = ParkingLot(name, Moto, Auto, Bus)
             elif test == 0:
-                parking_lot = ParkingLot("Moscow", 3, 5, 16)
+                parking_lot = ParkingLot("Moscow", 1, 1, 1)
             break
         except ValueError:
             print("You entered incorrect data, try again\n")
