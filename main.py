@@ -4,7 +4,7 @@ if __name__ == '__main__':
     while True:
         parking_lot = None
         try:
-            test = int(input("If you want to start test parking press 0: "))
+            test = int(input("If you want to start test parking press 0 if no 1: "))
             if test != 0:
                 name = input("Enter name parking lot: ")
                 Moto = int(input("Enter count place for Motorcycle: "))
