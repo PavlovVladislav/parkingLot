@@ -31,7 +31,7 @@ class ParkingLot:
             print()
         print()
 
-    def show_info(self):
+    def show_occupied_place(self):
         print("Moto on parking lot: " + str(self.transport["Moto"]))
         print("Auto on parking lot: " + str(self.transport["Auto"]))
         print("Bus on parking lot: " + str(self.transport["Bus"]), end='\n\n')
@@ -99,7 +99,7 @@ class ParkingLot:
                 for i in range(5):
                     self.schema[2][start + i] = 0
                 self.schema[2].reverse()
-                self.transport["Bus"] += 1
+                self.transport["Bus"] -= 1
                 print("Removed 1 Bus", end='\n\n')
             else:
                 print("All place for Bus are free", end='\n\n')
